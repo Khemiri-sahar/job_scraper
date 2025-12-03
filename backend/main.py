@@ -37,6 +37,16 @@ class Query(BaseModel):
     text: str
     top_k: int = 5
 
+@app.get("/")
+def root():
+    """Health check endpoint"""
+    return {
+        "status": "online",
+        "message": "Job Recommender API",
+        "total_jobs": len(df),
+        "embedding_shape": list(embeddings.shape)
+    }
+
 # RECOMMENDATION ENDPOINT
 @app.post("/recommend")
 def recommend(query: Query):
